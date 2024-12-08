@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,20 +10,19 @@ public class ProfileTest extends BaseTest {
 
 
     @Test(groups = "Smoke")
-    public void changeProfileNameTest() throws InterruptedException {
+    public void changeProfileNameTest() {
         String newName = UUID.randomUUID().toString();
         login("nazar@testpro.io", "Pomidor2115");
         WebElement avatar = driver.findElement(By.cssSelector("#userBadge, [class=profile]"));
         avatar.click();
-        WebElement currentPasswordField = driver.findElement(By.cssSelector("#inputProfileCurrentPassword"));
+        WebElement currentPasswordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#inputProfileCurrentPassword")));
         currentPasswordField.sendKeys("Pomidor2115");
-        WebElement nameInput = driver.findElement(By.cssSelector("#inputProfileName"));
+        WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#inputProfileName")));
         nameInput.clear();
         nameInput.sendKeys(newName);
-        WebElement saveBtn = driver.findElement(By.cssSelector(".btn-submit"));
+        WebElement saveBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn-submit")));
         saveBtn.click();
-        Thread.sleep(3000);
-        WebElement userNameLabel = driver.findElement(By.cssSelector("#userBadge span[class=name]"));
-        Assert.assertEquals(newName, userNameLabel.getText());
+        WebElement userNameLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#userBadge span[class=name]")));
+        Assert.assertEquals(newName, userNameLabel.getText()); //todo fix the matter with the test
     }
 }
