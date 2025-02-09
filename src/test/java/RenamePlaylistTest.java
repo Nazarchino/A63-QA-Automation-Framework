@@ -1,9 +1,5 @@
-import org.example.HomePage;
-import org.example.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.example.pages.HomePage;
+import org.example.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;

@@ -1,5 +1,5 @@
-import org.example.HomePage;
-import org.example.LoginPage;
+import org.example.pages.HomePage;
+import org.example.pages.LoginPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -35,7 +35,7 @@ public class AddSongToPlaylistTest extends BaseTest {
         addTo.click();
         WebElement playlist1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//section[@id='songsWrapper']//section[@class='existing-playlists']//ul//li[contains(text(), 'Playlist 1')]")));
         playlist1.click();
-        WebElement songAdded = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("body > div.alertify-logs.top.right > div")));
+        WebElement songAdded = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='success show']")));
         Assert.assertTrue(songAdded.isDisplayed());
     }
 }

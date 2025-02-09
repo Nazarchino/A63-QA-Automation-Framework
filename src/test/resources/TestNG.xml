@@ -6,9 +6,16 @@
 <parameter name="baseUrl" value="https://qa.koel.app/"/>
     <test name="Example Test" preserve-order="false">
         <classes>
-            <class name="LoginTests"/>
+
+            <class name="LoginTests">
+            <methods>
+                <include name="loginTest"/>
+                <include name="loginWithEmptyCredentials"/>
+            </methods>
+            </class>
             <class name="RegistrationNavigationTest"/>
             <class name="ProfileTest"/>
+            <class name="PlaySongByActionClickTest"/>
             <class name="AddSongToPlaylistTest"/>
             <class name="PlaySongTest"/>
             <class name="DeletePlaylistTest"/>

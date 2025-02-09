@@ -1,6 +1,6 @@
-import org.example.HomePage;
-import org.example.LoginPage;
-import org.example.PlaylistPage;
+import org.example.pages.HomePage;
+import org.example.pages.LoginPage;
+import org.example.pages.PlaylistPage;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
