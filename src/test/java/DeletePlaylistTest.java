@@ -17,14 +17,14 @@ public class DeletePlaylistTest extends BaseTest {
     @Test
     public void deletePlaylist() throws InterruptedException {
         String PlaylistName = "PlaylistForDeleting";
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
         loginPage.login("nazar@testpro.io", "Pomidor2115");
-        homePage = new HomePage(driver);
+        homePage = new HomePage(getDriver());
         homePage.createPlaylist(actions, PlaylistName);
         homePage.openPlaylist(PlaylistName);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
         playlistPage.deletePlaylist(wait);
-        waitUntilVisibilityOfElementLocatedBy(driver, By.xpath("//section[@id='playlists']//li//a[text()='PlaylistForDeleting']"));
+        waitUntilVisibilityOfElementLocatedBy(getDriver(), By.xpath("//section[@id='playlists']//li//a[text()='PlaylistForDeleting']"));
         Assert.assertTrue(homePage.getPlaylistByName(PlaylistName).isDisplayed());
 
 
@@ -32,9 +32,9 @@ public class DeletePlaylistTest extends BaseTest {
         @Test
         public void addPlaylistTest() throws InterruptedException{
         String PlaylistName = "Playlist 1";
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
         loginPage.login("nazar@testpro.io", "Pomidor2115");
-        homePage = new HomePage(driver);
+        homePage = new HomePage(getDriver());
         int previousSize = homePage.getAllPlaylists().size();
         homePage.createPlaylist(PlaylistName);
         int actualSize = homePage.getAllPlaylists().size();

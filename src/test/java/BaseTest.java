@@ -19,11 +19,13 @@ import java.time.Duration;
 
 public class BaseTest {
 
-    protected WebDriver driver = null;
+    private WebDriver driver;
 
-    protected WebDriverWait wait = null;
+    protected WebDriverWait wait;
 
-    protected Actions actions = null;
+    protected Actions actions;
+
+    private static final ThreadLocal<WebDriver> threadLocal = new ThreadLocal<>();
 
 
 
@@ -34,21 +36,27 @@ public class BaseTest {
     public void SetUpDriver(String url) throws MalformedURLException {
 
         driver = pickDriver(System.getProperty("browser"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        threadLocal.set(driver);
+        threadLocal.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         //String url = "https://qa.koel.app/";
-        driver.get(url);
-        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
-        actions = new Actions(driver);
+        threadLocal.get().get(url);
+        wait = new WebDriverWait(threadLocal.get(), java.time.Duration.ofSeconds(10));
+        actions = new Actions(threadLocal.get());
         int width = 1920;
         int height = 1080;
         Dimension dimension = new Dimension(width, height);
-        driver.manage().window().setSize(dimension);
+        threadLocal.get().manage().window().setSize(dimension);
     }
+
+    public WebDriver getDriver(){
+        return threadLocal.get();
+    }
+
 
     @AfterMethod
     public void closeBrowser() {
-        driver.quit();
+        getDriver().quit();
     }
 
 
@@ -56,7 +64,7 @@ public class BaseTest {
         String gridUrl = "http://192.168.0.110:4444";
         ChromeOptions options = new ChromeOptions();
         EdgeOptions edgeOptions = new EdgeOptions();
-
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         switch (browser) {
             case "edge":
                 WebDriverManager.edgedriver().setup();
@@ -71,10 +79,12 @@ public class BaseTest {
                 return driver = new ChromeDriver(options);
 
             case "grid":
-                DesiredCapabilities capabilities = new DesiredCapabilities();
                 capabilities.setCapability("browserName", "chrome");
                 return driver = new RemoteWebDriver(URI.create(gridUrl).toURL(), capabilities);
 
+            case "lambda":
+
+                return driver = new RemoteWebDriver(URI.create(gridUrl).toURL(), capabilities);
             default:
                 WebDriverManager.chromedriver().setup();
                 options.addArguments("--remote-allow-origins=*");

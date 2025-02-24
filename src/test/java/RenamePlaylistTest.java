@@ -18,10 +18,10 @@ public class RenamePlaylistTest extends BaseTest{
     @Test
     public void renamePlaylist() throws InterruptedException {
 
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
         loginPage.login("nazar@testpro.io", "Pomidor2115");
         Thread.sleep(2000);
-        homePage = new HomePage(driver);
+        homePage = new HomePage(getDriver());
         homePage.renamePlaylist(currentPlaylistName, newPlaylistName);
 
 
@@ -36,7 +36,7 @@ public class RenamePlaylistTest extends BaseTest{
 
     @AfterMethod
     public void rollBackChanges() throws InterruptedException {
-        homePage = new HomePage(driver);
+        homePage = new HomePage(getDriver());
         homePage.renamePlaylist(newPlaylistName, currentPlaylistName);
     }
 

@@ -15,7 +15,7 @@ public class PlaySongByActionClickTest extends BaseTest {
     public void playSongByContextClick() {
         String songLocator = "//article[@data-test='song-card']//span[contains(text(), '%s')]";
         String songName = "Way Of The Samurai";
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
         loginPage.login("nazar@testpro.io", "Pomidor2115");
         WebElement allSongsMenuItem = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id='sidebar'] .songs")));
         actions.click(allSongsMenuItem).perform();
@@ -23,7 +23,7 @@ public class PlaySongByActionClickTest extends BaseTest {
         actions.contextClick(song).perform();
         WebElement playFromContextMenu = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='song-context-menu'] .playback")));
         actions.click(playFromContextMenu).perform();
-        WebElement pause = driver.findElement(By.cssSelector("[class='fa fa-pause']"));
+        WebElement pause = getDriver().findElement(By.cssSelector("[class='fa fa-pause']"));
         Assert.assertTrue(pause.isDisplayed());
 
     }

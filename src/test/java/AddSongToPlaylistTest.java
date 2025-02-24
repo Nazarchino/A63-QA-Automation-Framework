@@ -15,7 +15,7 @@ public class AddSongToPlaylistTest extends BaseTest {
     @Test(groups = "Smoke")
     public void addSongToPlaylist() throws InterruptedException {
         String testPlaylistName = "Playlist 1";
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
         loginPage.login("nazar@testpro.io", "Pomidor2115");
         WebElement newPlaylist = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-testid='sidebar-create-playlist-btn']")));
         Thread.sleep(1000);
@@ -27,7 +27,7 @@ public class AddSongToPlaylistTest extends BaseTest {
         playlistName.sendKeys(testPlaylistName);
         playlistName.sendKeys(Keys.ENTER);
         Thread.sleep(1000);
-        WebElement allSongs = driver.findElement(By.cssSelector("[href='#!/songs']"));
+        WebElement allSongs = getDriver().findElement(By.cssSelector("[href='#!/songs']"));
         allSongs.click();
         WebElement testSong = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='item-container']//tr[@class='song-item']//td[text()='Riqui-Riqui']")));
         testSong.click();
