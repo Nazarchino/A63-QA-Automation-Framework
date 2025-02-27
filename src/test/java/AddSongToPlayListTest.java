@@ -5,7 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class AddSongToPlaylistTest extends BaseTest {
+public class AddSongToPlayListTest extends BaseTest {
 
     LoginPage loginPage = null;
 
@@ -31,10 +31,13 @@ public class AddSongToPlaylistTest extends BaseTest {
         allSongs.click();
         WebElement testSong = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='item-container']//tr[@class='song-item']//td[text()='Riqui-Riqui']")));
         testSong.click();
+        Thread.sleep(1000);
         WebElement addTo = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-test='add-to-btn']")));
         addTo.click();
+        Thread.sleep(1000);
         WebElement playlist1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//section[@id='songsWrapper']//section[@class='existing-playlists']//ul//li[contains(text(), 'Playlist 1')]")));
         playlist1.click();
+        Thread.sleep(1000);
         WebElement songAdded = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='success show']")));
         Assert.assertTrue(songAdded.isDisplayed());
     }

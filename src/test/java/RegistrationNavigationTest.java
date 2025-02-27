@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static java.sql.DriverManager.getDriver;
+
 public class RegistrationNavigationTest extends BaseTest {
 
     @Test(groups = "Smoke")

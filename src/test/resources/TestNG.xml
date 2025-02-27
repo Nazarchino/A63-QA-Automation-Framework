@@ -15,12 +15,12 @@
             </class>
             <class name="RegistrationNavigationTest"/>
             <class name="ProfileTest"/>
-            <class name="PlaySongByActionClickTest"/>
-            <class name="AddSongToPlaylistTest"/>
+            <class name="PlaySongByActionsTest"/>
+            <class name="AddSongToPlayListTest"/>
             <class name="PlaySongTest"/>
-            <class name="DeletePlaylistTest"/>
+            <class name="DeletePlayListTest"/>
             <class name="BaseTest"/>
-            <class name="RenamePlaylistTest"/>
+            <class name="RenamePlayListTest"/>
             <class name="ThemeTest"/>
 
 

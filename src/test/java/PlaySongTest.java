@@ -7,13 +7,9 @@ import org.testng.annotations.Test;
 
 
 public class PlaySongTest extends BaseTest {
-
-    LoginPage loginPage = null;
-
-
-    @Test (groups = "Homework18")
+    @Test
     public void playSong() {
-        loginPage = new LoginPage(getDriver());
+        LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login("nazar@testpro.io", "Pomidor2115");
         WebElement playButtonBar = getDriver().findElement(By.cssSelector("[data-testid='play-next-btn']"));
         playButtonBar.click();

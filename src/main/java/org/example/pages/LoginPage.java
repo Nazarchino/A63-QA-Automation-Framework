@@ -1,4 +1,6 @@
 package org.example.pages;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,19 +16,15 @@ public class LoginPage extends BasePage {
     @FindBy(css = ".logo")
     WebElement logo;
 
-
-
     public LoginPage(WebDriver existDriver) {
         super(existDriver);
     }
 
-
-    public void login(String email, String password){
+    public void login(String email, String password) {
         provideEmail(email).providePassword(password).clickSubmit();
-
     }
 
-    private LoginPage provideEmail(String email){
+    private LoginPage provideEmail(String email) {
         emailInput.sendKeys(email);
         return this;
     }
@@ -36,19 +34,11 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    private void clickSubmit(){
+    private void clickSubmit() {
         loginButton.click();
     }
 
-
-
-
     public WebElement getLogo() {
-
         return logo;
-
-
     }
-
-
 }
