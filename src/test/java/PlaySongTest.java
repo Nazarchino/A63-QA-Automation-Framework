@@ -7,19 +7,15 @@ import org.testng.annotations.Test;
 
 
 public class PlaySongTest extends BaseTest {
-
-    LoginPage loginPage = null;
-
-
-    @Test (groups = "Homework18")
+    @Test
     public void playSong() {
-        loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login("nazar@testpro.io", "Pomidor2115");
-        WebElement playButtonBar = driver.findElement(By.cssSelector("[data-testid='play-next-btn']"));
+        WebElement playButtonBar = getDriver().findElement(By.cssSelector("[data-testid='play-next-btn']"));
         playButtonBar.click();
         WebElement playButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-testid='play-btn']")));
         playButton.click();
-        WebElement pause = driver.findElement(By.cssSelector("[class='fa fa-pause']"));
+        WebElement pause = getDriver().findElement(By.cssSelector("[class='fa fa-pause']"));
         Assert.assertTrue(pause.isDisplayed());
     }
 

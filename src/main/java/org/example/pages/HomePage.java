@@ -11,120 +11,85 @@ import java.util.List;
 
 public class HomePage extends BasePage {
 
-
     @FindBy(css = "#userBadge img")
     WebElement avatar;
-
-    @FindBy(css = "[data-testid='sidebar-create-playlist-btn']")
-    WebElement addPlaylistButton;
-
+    @FindBy(css = "#playlists i[role='button']")
+    WebElement addPlayListButton;
     @FindBy(css = "[data-testid='playlist-context-menu-create-simple']")
-    WebElement createPlaylist;
-
-    @FindBy(css = "#playlists > form > input[type=text]")
-    WebElement playlistNameInput;
-
-    String playListLocator = "//section[@id='playlists']//li//a[text()='%s']";
-
-
+    WebElement createPlayListButton;
+    @FindBy(css = "[name='create-simple-playlist-form']>input")
+    WebElement playListNameInput;
+    String playListLocator = "//section[@id='playlists']//li/a[text()='%s']";
     @FindBy(xpath = "//li[contains(@data-testid, 'playlist-context-menu-edit')]")
     WebElement editButton;
-
-    @FindBy(css = "[data-testid='inline-playlist-name-input']")
+    @FindBy(xpath = "//ul/li//input[@type='text']")
     WebElement renamePlaylistInput;
-
     @FindBy(css = "#playlists li")
     List<WebElement> playLists;
-
-
-
-
-
 
     public HomePage(WebDriver existDriver) {
         super(existDriver);
     }
 
-
     public WebElement getAvatar() {
         return avatar;
     }
 
-
     public WebElement getAddPlaylistButton() {
-        return addPlaylistButton;
-
-
+        return addPlayListButton;
     }
-
 
     public WebElement getCreatePlaylistButton() {
-        return createPlaylist;
-
+        return createPlayListButton;
     }
-
 
     public WebElement getPlaylistNameInput() {
-        return playlistNameInput;
-
+        return playListNameInput;
     }
 
-    public void createPlaylist(Actions actions, String testPlaylistName) throws InterruptedException {
+    public void createPlaylist(Actions actions,String playlistName) throws InterruptedException {
         actions.moveToElement(getAddPlaylistButton()).perform();
-        Thread.sleep(1000);
         getAddPlaylistButton().click();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         getCreatePlaylistButton().click();
-        getPlaylistNameInput().sendKeys(testPlaylistName);
+        getPlaylistNameInput().sendKeys(playlistName);
         getPlaylistNameInput().sendKeys(Keys.ENTER);
-
     }
 
     public WebElement getPlaylistByName(String playlistName) {
-        return findElement(By.xpath(String.format("//section[@id='playlists']//li//a[text()='%s']", playlistName)));
-
-
+        return findElement(By.xpath(String.format("//section[@id='playlists']//li/a[text()='%s']", playlistName)));
     }
 
-    public void openPlaylist(String testPlaylistName) {
-        getPlaylistByName(testPlaylistName).click();
+    public void openPlayList(String playlistName) {
+        getPlaylistByName(playlistName).click();
     }
 
-
-    public WebElement getPlayListByName(String PlayListName) {
-        return waitAndFindWebElement(By.xpath(String.format(playListLocator, PlayListName)));
-
+    public WebElement getPlayListByName(String playListName) {
+        return waitAndFindWebElement(By.xpath(String.format(playListLocator, playListName)));
     }
 
-    public void renamePlaylist(String currentPlaylistName, String newPlaylistName) throws InterruptedException {
-        contextClickByElement(getPlayListByName(currentPlaylistName));
-        Thread.sleep(1000);
+    public void renamePlayList(String currentPlayListName, String newPlayListName) throws InterruptedException {
+        contextClickByElement(getPlayListByName(currentPlayListName));
+        Thread.sleep(2000);
         editButton.click();
-
-        for (int i = 0; i < currentPlaylistName.length(); i++) {
+        for (int i = 0; i < currentPlayListName.length(); i++) {
             renamePlaylistInput.sendKeys(Keys.BACK_SPACE);
         }
-        renamePlaylistInput.sendKeys(newPlaylistName);
+        renamePlaylistInput.sendKeys(newPlayListName);
         renamePlaylistInput.sendKeys(Keys.ENTER);
         getSuccessMessage();
     }
 
-
-
-    public List<WebElement> getAllPlaylists() {
+    public List<WebElement> getAllPlayLists() {
         return playLists;
-
     }
 
-
-
-    public void createPlaylist(String playListName) throws InterruptedException {
-        Thread.sleep(1000);
+    public void createPlayList(String playListName) throws InterruptedException {
+        Thread.sleep(3000);
         getAddPlaylistButton().click();
         getCreatePlaylistButton().click();
         getPlaylistNameInput().sendKeys(playListName);
         getPlaylistNameInput().sendKeys(Keys.ENTER);
-        waitUntilSuccessMessageIsDisappeared();
+        waitUntilSuccessMessageIsDisappear();
     }
-
 }
