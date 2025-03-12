@@ -76,9 +76,11 @@ public class BaseTest {
                 capabilities.setCapability("browserVersion", "133.0");
                 HashMap<String, Object> ltOptions = new HashMap<>();
                 ltOptions.put("username", userName);
-                ltOptions.put("apiKey", apiKey);
+                ltOptions.put("accessKey", apiKey);
                 ltOptions.put("platformName", "Windows 10");
                 ltOptions.put("project", "Koel");
+                ltOptions.put("w3c", true);
+                ltOptions.put("plugin", "java-testNG");
                 capabilities.setCapability("LT:Options", ltOptions);
                 return driver = new RemoteWebDriver(URI.create("https://" + userName + ";" + apiKey + hub).toURL(), capabilities);
             default:
