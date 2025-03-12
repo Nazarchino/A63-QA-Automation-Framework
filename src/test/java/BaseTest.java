@@ -82,7 +82,7 @@ public class BaseTest {
         }
     }
 
-    public WebDriver getLambdaDriver() {
+    public WebDriver getLambdaDriver() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         String hub = "@hub.lambdatest.com/wd/hub";
         String userName = "nazarchino";
