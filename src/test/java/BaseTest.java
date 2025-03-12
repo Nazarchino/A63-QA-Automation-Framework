@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -53,8 +54,9 @@ public class BaseTest {
     }
 
     public WebDriver pickDriver(String browser) throws MalformedURLException {
-        String gridUrl = "http://192.168.1.220:4444/";
+        String gridUrl = "http://192.168.0.110:4444";
         ChromeOptions options = new ChromeOptions();
+        EdgeOptions edgeOptions = new EdgeOptions();
         DesiredCapabilities capabilities = new DesiredCapabilities();
         switch (browser) {
             case "chrome":
@@ -64,25 +66,14 @@ public class BaseTest {
                 return driver = new ChromeDriver(options);
             case "edge":
                 WebDriverManager.edgedriver().setup();
-                return driver = new EdgeDriver();
+                edgeOptions.addArguments("--remote-allow-origins=*");
+                edgeOptions.addArguments("--disable-notifications");
+                return driver = new EdgeDriver(edgeOptions);
             case "grid":
-                capabilities.setCapability("browserName", "edge");
+                capabilities.setCapability("browserName", "chrome");
                 return driver = new RemoteWebDriver(URI.create(gridUrl).toURL(), capabilities);
             case "lambda":
-                String hub = "@hub.lambdatest.com/wd/hub";
-                String userName = "nazarchino";
-                String apiKey = "LT_dMHpzRbcLO7GJJiv2sQ5EnurzDcDeYOm8TJSnHNgLTK3A2Z";
-                capabilities.setCapability("browserName", "Chrome");
-                capabilities.setCapability("browserVersion", "133.0");
-                HashMap<String, Object> ltOptions = new HashMap<>();
-                ltOptions.put("username", userName);
-                ltOptions.put("accessKey", apiKey);
-                ltOptions.put("platformName", "Windows 10");
-                ltOptions.put("project", "Koel");
-                ltOptions.put("w3c", true);
-                ltOptions.put("plugin", "java-testNG");
-                capabilities.setCapability("LT:Options", ltOptions);
-                return driver = new RemoteWebDriver(URI.create("https://" + userName + ";" + apiKey + hub).toURL(), capabilities);
+                return getLambdaDriver();
             default:
                 WebDriverManager.chromedriver().setup();
                 options.addArguments("--remote-allow-origins=*");
@@ -90,4 +81,23 @@ public class BaseTest {
                 return driver = new ChromeDriver(options);
         }
     }
+
+    public WebDriver getLambdaDriver() {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        String hub = "@hub.lambdatest.com/wd/hub";
+        String userName = "nazarchino";
+        String apiKey = "LT_dMHpzRbcLO7GJJiv2sQ5EnurzDcDeYOm8TJSnHNgLTK3A2Z";
+        capabilities.setCapability("browserName", "Chrome");
+        capabilities.setCapability("browserVersion", "133.0");
+        HashMap<String, Object> ltOptions = new HashMap<>();
+        ltOptions.put("username", userName);
+        ltOptions.put("accessKey", apiKey);
+        ltOptions.put("platformName", "Windows 10");
+        ltOptions.put("project", "Koel");
+        ltOptions.put("w3c", true);
+        ltOptions.put("plugin", "java-testNG");
+        capabilities.setCapability("LT:Options", ltOptions);
+        return driver = new RemoteWebDriver(URI.create("https://" + userName + ":" + apiKey + hub).toURL(), capabilities);
+    }
+
 }
